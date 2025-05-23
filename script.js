@@ -28,12 +28,48 @@ function generateRandomStatus() {
 // Function to get icon path with fallback options
 function getIconPath(sourceName) {
     const iconMappings = {
+        'AWS ALB': 'AWS ALB',
         'AWS ELB': 'AWS Classic ELB',
+        'AWS NLB': 'AWS NLB',
+        'AWS CloudFront': 'AWS CloudFront',
+        'AWS API Gateway': 'AWS API Gateway',
+        'AWS ElastiCache': 'AWS ElastiCache',
+        'AWS Network Firewall': 'AWS Network Firewall',
+        'AWS Route53': 'AWS Route53',
+        'AWS S3': 'AWS S3',
+        'AWS Transit Gateway': 'AWS Transit Gateway',
+        'AWS VPC': 'AWS VPC',
+        'AWS WAF': 'AWS WAF',
         'Azure Event Hub': 'Azure Eventhub',
+        'Azure API Management': 'Azure API Management',
+        'Azure App Gateway': 'Azure App Gateway',
+        'Azure Firewall': 'Azure Firewall',
+        'Azure Load Balancer': 'Azure Load Balancer',
         'JVM Monitor': 'JVM Monitoring',
         'HPUX Monitor': 'Dell HPUX Monitor',
         'URL Availability': 'URL availability',
         'SFTP Monitor': 'SFTP Monitoer',
+        'F5 LTM': 'F5 Load Balancer',
+        'HAProxy LB': 'HAProxy',
+        'Kong Gateway': 'Kong API Gateway',
+        'Microsoft DFS': 'MIcrosoft DFS',
+        'SQL Server': 'MSSQL',
+        'MySQL DB': 'MYSQL',
+        'Oracle DB': 'Oracle',
+        'PostgreSQL DB': 'PostgreSQL',
+        'Palo Alto FW': 'Palo Alto Firewall',
+        'Radware ADC': 'Radware Load Balancer',
+        'Service Monitor': 'Service Monitor',
+        'Windows Server': 'Windows Monitor',
+        'Linux Server': 'Linux Monitor',
+        'Solaris Server': 'Solaris Monitor',
+        'SSL Certificate Monitor': 'SSL Certificate',
+        'HTTP Monitor': 'HTTP Poller',
+        'DNS Monitor': 'DNS Monitoring',
+        'Device Monitor': 'Device Availability',
+        'Log Monitor': 'Log Collector',
+        'SQL Monitor': 'SQL Data Collector',
+        'Kafka Monitor': 'Kafka Data Collector'
     };
 
     const mappedName = iconMappings[sourceName] || sourceName;
@@ -59,7 +95,18 @@ function createCard(data) {
     img.alt = data['O11ySource Name'];
     img.onerror = () => {
         console.warn(`Icon not found for ${data['O11ySource Name']}`);
-        img.src = 'O11ySource icons/Service Monitor.png';
+        // Create placeholder container
+        const placeholder = document.createElement('div');
+        placeholder.className = 'image-placeholder';
+        placeholder.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+            </svg>
+        `;
+        // Replace img with placeholder
+        img.replaceWith(placeholder);
     };
 
     imageContainer.appendChild(img);
