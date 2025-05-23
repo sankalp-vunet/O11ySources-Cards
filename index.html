@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O11y Sources Grid</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-main">
+            <span class="material-icons menu-icon">menu</span>
+            <img src="VuNet Logo.svg" alt="VuNet Logo" class="logo">
+            <div class="user-icon"></div>
+        </div>
+        <nav class="breadcrumb">
+            <span>vuSmartMaps</span>
+            <span>Data Ingestion</span>
+            <span>O11ySources</span>
+        </nav>
+    </header>
+
+    <div class="search-filter-container">
+        <div class="search-row">
+            <div class="search-bar">
+                <input type="text" id="sourceSearch" placeholder="Search O11ySources">
+            </div>
+        </div>
+        <div class="filter-row">
+            <div class="filter-section">
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                        <span class="type-text">Type</span>
+                        <span class="selected-count">0</span>
+                        <span class="material-icons">expand_more</span>
+                    </button>
+                    <div class="dropdown-content" id="typeFilterTags">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <span class="filter-label">Category:</span>
+                <div class="filter-tags" id="categoryFilterTags">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-container" id="cardGrid">
+        <!-- Cards will be dynamically inserted here -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,99 @@
+O11ySource Name,Component Type,Component Category
+Active Directory,Directory Service,Infra
+AIX Monitor,Server,Infra
+AWS ALB,Cloud Network Service,Network
+AWS ELB,Cloud Network Service,Network
+AWS NLB,Cloud Network Service,Network
+AWS S3,Cloud Storage,Infra
+AWS Transit Gateway,Cloud Network Service,Network
+AWS RDS,Cloud Database,Infra
+AWS VPC,Cloud Network Service,Network
+Apache,Web Server,Infra
+AWS API Gateway,Cloud API Gateway,Network
+AWS CloudFront,CDN,Network
+AWS ElastiCache,Memory Cache,Infra
+AWS Network Firewall,Firewall,Network
+AWS Route53,DNS,Network
+AWS VPC,Cloud Network Service,Network
+AWS WAF,Firewall,Network
+Azure Compute VM,Virtual Machine,Infra
+Azure Compute VM Scaleset,Virtual Machine,Infra
+Azure Container Registry,Image Registry,Infra
+Azure Container Service,Container Orchestration,Infra
+Azure Event Hub,Event Streaming,Infra
+Azure Storage,Cloud Storage,Infra
+Browser RUM,Real User Monitoring,APM
+Cassandra,Database,Infra
+Cisco Firewall,Firewall,Network
+Cisco Monitor,Network Device,Network
+Cisco Router,Router,Network
+Cisco Switch,Switch,Network
+Database Data,Data,Infra
+Dell Switch,Switch,Network
+Device Availability,Availability,Infra
+DNS Monitoring,DNS,Network
+F5 Load Balancer,Load Balancer,Network
+Fortinet Firewall,Firewall,Network
+GCP GKE,Container Orchestration,Infra
+HAProxy,Load Balancer,Network
+Apache HDFS,Distributed File System,Infra
+HPUX Monitor,Server,Infra
+HTTP Poller,Data,Infra
+HTTP Receiver,Data,Infra
+IBM HTTP Server,Web Server,Infra
+IBM MQ,Messaging,Infra
+IBM WAS,Application Server,Infra
+IIS,Web Server,Infra
+JBoss,Application Server,Infra
+JVM Monitor,JVM,Infra
+Kafka,Message Store,Infra
+Keycloak,IAM,Infra
+KeyDB,Memory Cache,Infra
+Kong API Gateway,API Gateway,Network
+Kubernetes,Container Orchestration,Infra
+Linux Monitor,Server,Infra
+Log Collector,Logs,Infra
+Linux Windows Logs,Logs,Infra
+MariaDB,Database,Infra
+Solaris AIX Logs,Logs,Infra
+Microsoft DFS,Storage Service,Infra
+Mobile RUM,Real User Monitoring,APM
+MongoDB,Database,Infra
+MSSQL,Database,Infra
+MySQL,Database,Infra
+Netflow,Traffic Flows,Network
+Nginx,Web Server,Infra
+Nutanix,Hypervisor,Infra
+OCI API Gateway,Cloud API Gateway,Network
+OHS,Web Server,Infra
+Oracle,Database,Infra
+Palo Alto Firewall,Firewall,Network
+PostgreSQL,Database,Infra
+PRTG,Monitoring Tool,Infra
+RabbitMQ,Messaging,Infra
+Radware Load Balancer,Load Balancer,Network
+Rancher,Container Orchestration,Infra
+Real User Monitoring,Real User Monitoring,Infra
+Redis,Memory Cache,Infra
+Service Monitor,Availability,Infra
+SFTP Monitor,Network Service,Infra
+SNMP Availability,Availability,Network
+SNMP Polling,Device,Network
+SNMP Trap,Device Traps,Network
+Solaris Monitor,Server,Infra
+Solaris Monitoring,Server,Infra
+Solarwinds,Monitoring Tool,Infra
+SSL Certificate Monitor,Secure Channel,Infra
+Synthetic Browser Journey,Synthetic Monitoring,Infra
+Syslog,Logs,Infra
+Task Scheduler,Scheduler,Infra
+Tomcat,Application Server,Infra
+Traces,Traces,APM
+Traces Free,Traces,APM
+URL Availability,Availability,Infra
+Vault,Secure Store,Infra
+vSphere,Hypervisor,Infra
+WebLogic,Application Server,Infra
+Websphere Messaging Queue,Messaging,Infra
+Windows Monitor,Server,Infra
+Windows Event Logs,Logs,Infra
