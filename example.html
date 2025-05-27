@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparent Background with Non-Transparent Layer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            min-height: 100vh;
+        }
+
+        /* Method 1: Using pseudo-element */
+        .transparent-with-backdrop {
+            position: relative;
+            padding: 20px;
+            color: white;
+            font-size: 18px;
+            margin: 20px 0;
+            border-radius: 8px;
+            /* This div itself is transparent */
+            background: transparent;
+        }
+
+        .transparent-with-backdrop::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Non-transparent background underneath */
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        /* Method 2: Using backdrop-filter (modern browsers) */
+        .transparent-with-blur {
+            position: relative;
+            padding: 20px;
+            color: white;
+            font-size: 18px;
+            margin: 20px 0;
+            border-radius: 8px;
+            /* Transparent background */
+            background: rgba(255, 255, 255, 0.1);
+            /* Blur the background behind */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Method 3: Using box-shadow for backdrop */
+        .transparent-with-shadow {
+            position: relative;
+            padding: 20px;
+            color: white;
+            font-size: 18px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: transparent;
+            /* Create backdrop using inset shadow */
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Method 4: Using nested divs */
+        .transparent-container {
+            position: relative;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .backdrop-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .content-layer {
+            position: relative;
+            padding: 20px;
+            color: white;
+            font-size: 18px;
+            background: transparent;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white; text-align: center;">Transparent Background with Non-Transparent Layer Examples</h1>
+
+    <div class="transparent-with-backdrop">
+        <h3>Method 1: Using ::before pseudo-element</h3>
+        <p>This div has a transparent background, but the ::before pseudo-element creates a non-transparent backdrop underneath.</p>
+    </div>
+
+    <div class="transparent-with-blur">
+        <h3>Method 2: Using backdrop-filter</h3>
+        <p>This div uses backdrop-filter to blur the background while maintaining transparency with a subtle backdrop.</p>
+    </div>
+
+    <div class="transparent-with-shadow">
+        <h3>Method 3: Using inset box-shadow</h3>
+        <p>This div uses an inset box-shadow to create a backdrop effect while keeping the main background transparent.</p>
+    </div>
+
+    <div class="transparent-container">
+        <div class="backdrop-layer"></div>
+        <div class="content-layer">
+            <h3>Method 4: Using nested divs</h3>
+            <p>This approach uses separate divs for the backdrop and content layers.</p>
+        </div>
+    </div>
+</body>
+</html> 

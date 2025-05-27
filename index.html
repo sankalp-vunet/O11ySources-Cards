@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O11y Sources Grid</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="table-view.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons-sprite.svg">
 </head>
 <body>
     <header class="header">
@@ -26,24 +28,71 @@
             <div class="search-bar">
                 <input type="text" id="sourceSearch" placeholder="Search O11ySources">
             </div>
+            <div class="view-switch">
+                <button type="button" class="active" data-view="grid">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    Grid
+                </button>
+                <button type="button" data-view="table">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6h18"/>
+                        <path d="M3 12h18"/>
+                        <path d="M3 18h18"/>
+                    </svg>
+                    Table
+                </button>
+            </div>
         </div>
+        
         <div class="filter-row">
             <div class="filter-section">
-                <div class="dropdown">
-                    <button class="dropdown-button">
-                        <span class="type-text">Type</span>
-                        <span class="selected-count">0</span>
-                        <span class="material-icons">expand_more</span>
-                    </button>
-                    <div class="dropdown-content" id="typeFilterTags">
-                        <!-- Will be populated dynamically -->
+                <span class="filter-label">Type:</span>
+                <div class="filter-pills-container">
+                    <!-- New Dropdown Structure -->
+                    <div class="type-dropdown">
+                        <button type="button" class="type-dropdown-trigger">
+                            <span>Type</span>
+                            <span class="badge" style="display: none">0</span>
+                            <span class="material-icons">expand_more</span>
+                        </button>
+                        <div class="type-dropdown-content">
+                            <div class="type-dropdown-header">
+                                <div class="type-dropdown-search">
+                                    <span class="material-icons">search</span>
+                                    <input type="text" placeholder="Search types...">
+                                </div>
+                            </div>
+                            <div class="type-dropdown-options">
+                                <label class="type-option-all">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    <span>All Types</span>
+                                </label>
+                                <div class="type-dropdown-divider"></div>
+                                <div class="type-options-list" id="typeFilterTags">
+                                    <!-- Will be populated dynamically -->
+                                </div>
+                            </div>
+                            <div class="type-dropdown-divider"></div>
+                            <div class="type-dropdown-footer">
+                                <button type="button" class="btn-secondary">Cancel</button>
+                                <button type="button" class="btn-primary">Apply</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="filter-section">
-                <span class="filter-label">Category:</span>
-                <div class="filter-tags" id="categoryFilterTags">
-                    <!-- Will be populated dynamically -->
+                <span class="filter-label">Status:</span>
+                <div class="filter-pills-container">
+                    <div class="filter-tags" id="statusFilterTags">
+                        <!-- Will be populated dynamically -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,6 +100,65 @@
 
     <div class="grid-container" id="cardGrid">
         <!-- Cards will be dynamically inserted here -->
+    </div>
+
+    <div class="table-container" id="tableView" style="display: none;">
+        <div class="table-actions">
+            <button type="button" class="btn-secondary">
+                <span class="material-icons">view_column</span>
+                Columns
+            </button>
+            <button type="button" class="btn-secondary">
+                <span class="material-icons">sort</span>
+                Sort
+            </button>
+        </div>
+        <div class="table-scroll-container">
+            <table class="table-view">
+                <thead>
+                    <tr>
+                        <th class="checkbox-cell">
+                            <input type="checkbox" class="checkbox" id="selectAll">
+                        </th>
+                        <th class="icon-cell">Icon</th>
+                        <th class="name-cell">Name</th>
+                        <th class="type-cell">Type</th>
+                        <th class="status-cell-container">Status</th>
+                        <th class="metric-cell">
+                            <div class="metric-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="metric-icon">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                        </th>
+                        <th class="metric-cell">
+                            <div class="metric-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="metric-icon orange">
+                                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                                </svg>
+                            </div>
+                        </th>
+                        <th class="metric-cell">
+                            <div class="metric-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="metric-icon red">
+                                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                                </svg>
+                            </div>
+                        </th>
+                        <th class="description-cell">Description</th>
+                        <th class="actions-cell">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="script.js"></script>
