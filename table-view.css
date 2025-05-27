@@ -214,7 +214,8 @@
 
 /* Icon Column */
 .table-view .icon-cell {
-    width: 136px;
+    width: 96px;
+    min-width: 96px;
     text-align: center;
     padding: 0;
 }

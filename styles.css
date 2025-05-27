@@ -113,7 +113,14 @@ body {
 
 .filter-row {
     display: flex;
-    gap: 24px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters-group {
+    display: flex;
+    gap: 16px;
+    align-items: center;
 }
 
 .filter-section {
@@ -124,11 +131,6 @@ body {
     font-size: 12px;
     color: var(--text-secondary);
     z-index: 98;
-}
-
-.filter-label {
-    margin-right: 4px;
-    white-space: nowrap;
 }
 
 .filter-pills-container {
