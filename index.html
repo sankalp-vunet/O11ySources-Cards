@@ -38,7 +38,6 @@
                         <div class="type-dropdown">
                             <button type="button" class="type-dropdown-trigger">
                                 <span>Type</span>
-                                <span class="badge" style="display: none">0</span>
                                 <span class="material-icons">expand_more</span>
                             </button>
                             <div class="type-dropdown-content">
@@ -77,22 +76,18 @@
                 </div>
             </div>
             <div class="view-switch">
-                <button type="button" class="active" data-view="grid">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button type="button" class="view-toggle-button" data-current-view="grid" title="Switch to table view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="table-icon">
+                        <path d="M3 6h18"/>
+                        <path d="M3 12h18"/>
+                        <path d="M3 18h18"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="grid-icon" style="display: none;">
                         <rect x="3" y="3" width="7" height="7"/>
                         <rect x="14" y="3" width="7" height="7"/>
                         <rect x="14" y="14" width="7" height="7"/>
                         <rect x="3" y="14" width="7" height="7"/>
                     </svg>
-                    Grid
-                </button>
-                <button type="button" data-view="table">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 6h18"/>
-                        <path d="M3 12h18"/>
-                        <path d="M3 18h18"/>
-                    </svg>
-                    Table
                 </button>
             </div>
         </div>

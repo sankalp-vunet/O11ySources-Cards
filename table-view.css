@@ -1,6 +1,6 @@
 .table-container {
     background: #F6F8FA;
-    padding: 8px 24px;
+    padding: 16px;
     overflow: hidden;
     position: relative;
 }
@@ -50,11 +50,11 @@
 
 /* Handle border radius for sticky columns */
 .table-view th.checkbox-cell {
-    border-top-left-radius: 6px;
+    border-top-left-radius: 2px;
 }
 
 .table-view th.actions-cell {
-    border-top-right-radius: 6px;
+    border-top-right-radius: 2px;
 }
 
 /* Remove borders that would interfere with table border */
@@ -162,8 +162,7 @@
     left: 0;
     z-index: 20;
     background: white;
-    width: 32px;
-    min-width: 32px;
+    width: 24px;
 }
 
 .table-view th.actions-cell,
@@ -172,10 +171,9 @@
     right: 0;
     z-index: 20;
     background: white;
-    width: 80px;
-    min-width: 80px;
-    text-align: right;
-    padding-right: 16px;
+    width: 60px;
+    min-width: 60px;
+    text-align: center;
 }
 
 /* Checkbox Column */
@@ -214,31 +212,16 @@
 
 /* Icon Column */
 .table-view .icon-cell {
-    width: 96px;
-    min-width: 96px;
+    width: 48px;
+    padding: 8px;
     text-align: center;
     padding: 0;
 }
 
 .table-view .source-icon {
-    width: fit-content;
+    width: -webkit-fill-available;
     height: 44px;
     object-fit: cover;
-}
-
-.table-view .icon-placeholder {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #57606A;
-    margin: 0 auto;
-}
-
-.table-view .icon-placeholder svg {
-    width: 44px;
-    height: 44px;
 }
 
 /* Name and Type columns */
@@ -307,8 +290,7 @@
 /* Actions Column */
 .actions-container {
     display: flex;
-    gap: 4px;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 }
 
@@ -398,25 +380,25 @@
     background: white !important;
     background-image: linear-gradient(rgba(36, 41, 46, 0.08), rgba(36, 41, 46, 0.08)) !important;
     border-left: none !important;
-    border-right: none !important;
+    border-right: 1px solid var(--border-medium) !important;
 }
 
 .table-view th.actions-cell {
     background: white !important;
     background-image: linear-gradient(rgba(36, 41, 46, 0.08), rgba(36, 41, 46, 0.08)) !important;
-    border-left: none !important;
+    border-left: 1px solid var(--border-medium) !important;
     border-right: none !important;
 }
 
 .table-view td.checkbox-cell {
     background: white !important;
     border-left: none !important;
-    border-right: none !important;
+    border-right: 1px solid var(--border-medium) !important;
 }
 
 .table-view td.actions-cell {
     background: white !important;
-    border-left: none !important;
+    border-left: 1px solid var(--border-medium) !important;
     border-right: none !important;
 }
 
@@ -435,34 +417,31 @@
 .view-switch {
     display: flex;
     align-items: center;
-    gap: 0px;
-    background: white;
-    border: 1px solid rgba(36, 41, 46, 0.12);
-    border-radius: 6px;
-    overflow: hidden;
 }
 
-.view-switch button {
-    padding: 6px 12px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: #57606A;
+.view-toggle-button {
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    border: 1px solid rgba(36, 41, 46, 0.12);
+    border-radius: 2px;
+    background: white;
+    cursor: pointer;
+    color: var(--text-secondary);
+    border-color: var(--border-medium-not-enabled);
+    transition: all 0.2s ease;
+    position: relative;
 }
 
-.view-switch button.active {
+.view-toggle-button:hover {
     background: #F6F8FA;
     color: #24292E;
-    font-weight: 500;
 }
 
-.view-switch button:hover:not(.active) {
-    background: rgba(36, 41, 46, 0.04);
+.view-toggle-button:active {
+    background: rgba(36, 41, 46, 0.08);
 }
 
 .type-category-header {

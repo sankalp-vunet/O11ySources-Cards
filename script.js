@@ -95,28 +95,21 @@ function createCard(data) {
     card.setAttribute('data-type', type);
     card.setAttribute('data-category', category);
 
-    // Create image container (left column)
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'image-container';
-
+    // Create image element directly (no wrapper div)
     const img = document.createElement('img');
+    img.className = 'image-container';
     img.src = getIconPath(data['O11ySource Name']);
     img.alt = data['O11ySource Name'];
     img.onerror = () => {
-        console.warn(`Icon not found for ${data['O11ySource Name']}`);
-        // Replace with cube icon using same styling as other icons
-        img.outerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" class="source-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619.355 -1 1.01 -1 1.718v8.018c0 .709.381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718z" />
-                <path d="M12 22v-10" />
-                <path d="M12 12l8.73 -5.04" />
-                <path d="M3.27 6.96l8.73 5.04" />
-            </svg>
-        `;
+        console.warn(`Icon not found for ${data['O11ySource Name']}, using placeholder`);
+        console.log(`Switching from ${img.src} to O11ySource icons/Placeholder.png`);
+        // Use Placeholder.png for missing icons
+        img.src = 'O11ySource icons/Placeholder.png';
+        img.onerror = () => {
+            console.error('Placeholder.png also failed to load!');
+            img.onerror = null; // Prevent infinite loop
+        };
     };
-
-    imageContainer.appendChild(img);
 
     // Create text content container
     const textContent = document.createElement('div');
@@ -165,7 +158,7 @@ function createCard(data) {
     textContent.appendChild(status);
 
     // Append both columns to card
-    card.appendChild(imageContainer);
+    card.appendChild(img);
     card.appendChild(textContent);
 
     // Add mouse event listeners
@@ -234,7 +227,6 @@ function createFilterTags(items, containerId, sourcesData) {
         const cancelBtn = dropdown.querySelector('.btn-secondary');
         const applyBtn = dropdown.querySelector('.btn-primary');
         const allTypesCheckbox = dropdown.querySelector('.type-option-all input');
-        const badge = trigger.querySelector('.badge');
         
         // Store original state for cancel functionality
         let originalState = [];
@@ -340,11 +332,6 @@ function createFilterTags(items, containerId, sourcesData) {
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
             
-            // Update badge
-            const count = window.activeTypeFilters.length;
-            badge.style.display = count > 0 ? 'inline' : 'none';
-            badge.textContent = count;
-            
             // Apply filters to both views
             const searchInput = document.getElementById('sourceSearch');
             filterCards(searchInput.value, window.activeTypeFilters, null, window.activeStatusFilters);
@@ -394,18 +381,17 @@ function filterCards(searchText, activeTypeFilters, activeCategoryFilter, active
         const searchableContent = `${name} ${type} ${category} ${componentType} ${statusText}`.toLowerCase();
         
         const matchesSearch = !searchText || searchableContent.includes(searchText.toLowerCase());
-        const matchesType = activeTypeFilters.length === 0 || activeTypeFilters.includes(card.getAttribute('data-type'));
+        
+        // Type filter: if no types selected, hide all; if types selected, must match one of them
+        const matchesType = activeTypeFilters.length > 0 && activeTypeFilters.includes(type);
+        
         const matchesCategory = !activeCategoryFilter || card.getAttribute('data-category') === activeCategoryFilter;
-        const matchesStatus = activeStatusFilters.length === 0 || activeStatusFilters.includes(status);
+        
+        // Status filter: if no status filters selected, hide all; if status filters selected, must match one of them
+        const matchesStatus = activeStatusFilters.length > 0 && activeStatusFilters.includes(status);
 
         card.style.display = (matchesSearch && matchesType && matchesCategory && matchesStatus) ? 'flex' : 'none';
     });
-}
-
-function updateTypeFilterDisplay(activeTypeFilters) {
-    const countBadge = document.querySelector('.selected-count');
-    countBadge.style.display = activeTypeFilters.length === 0 ? 'none' : 'inline';
-    countBadge.textContent = activeTypeFilters.length;
 }
 
 // Function to generate random metrics
@@ -461,17 +447,14 @@ function createTableRow(data) {
     img.alt = data['O11ySource Name'];
     img.className = 'source-icon';
     img.onerror = () => {
-        const placeholder = document.createElement('div');
-        placeholder.className = 'icon-placeholder';
-        placeholder.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619.355 -1 1.01 -1 1.718v8.018c0 .709.381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718z" />
-                <path d="M12 22v-10" />
-                <path d="M12 12l8.73 -5.04" />
-                <path d="M3.27 6.96l8.73 5.04" />
-            </svg>
-        `;
-        img.replaceWith(placeholder);
+        console.warn(`Icon not found for ${data['O11ySource Name']}, using placeholder`);
+        console.log(`Switching from ${img.src} to O11ySource icons/Placeholder.png`);
+        // Use Placeholder.png for missing icons
+        img.src = 'O11ySource icons/Placeholder.png';
+        img.onerror = () => {
+            console.error('Placeholder.png also failed to load!');
+            img.onerror = null; // Prevent infinite loop
+        };
     };
     iconContainer.appendChild(img);
     iconCell.appendChild(iconContainer);
@@ -604,22 +587,60 @@ function createTableRow(data) {
 }
 
 // Function to switch views
-function switchView(viewType) {
+function switchView(viewType, updateURL = true) {
     const gridContainer = document.getElementById('cardGrid');
     const tableContainer = document.getElementById('tableView');
-    const gridButton = document.querySelector('[data-view="grid"]');
-    const tableButton = document.querySelector('[data-view="table"]');
+    const toggleButton = document.querySelector('.view-toggle-button');
+    const gridIcon = toggleButton.querySelector('.grid-icon');
+    const tableIcon = toggleButton.querySelector('.table-icon');
     
     if (viewType === 'grid') {
         gridContainer.style.display = 'grid';
         tableContainer.style.display = 'none';
-        gridButton.classList.add('active');
-        tableButton.classList.remove('active');
+        
+        // Update button to show table icon (since we're in grid view, clicking will switch to table)
+        gridIcon.style.display = 'none';
+        tableIcon.style.display = 'block';
+        toggleButton.setAttribute('data-current-view', 'grid');
+        toggleButton.setAttribute('title', 'Switch to table view');
+        
+        // Update URL hash
+        if (updateURL) {
+            window.history.pushState({ view: 'grid' }, '', '#grid');
+        }
     } else {
         gridContainer.style.display = 'none';
         tableContainer.style.display = 'block';
-        gridButton.classList.remove('active');
-        tableButton.classList.add('active');
+        
+        // Update button to show grid icon (since we're in table view, clicking will switch to grid)
+        gridIcon.style.display = 'block';
+        tableIcon.style.display = 'none';
+        toggleButton.setAttribute('data-current-view', 'table');
+        toggleButton.setAttribute('title', 'Switch to grid view');
+        
+        // Update URL hash
+        if (updateURL) {
+            window.history.pushState({ view: 'table' }, '', '#table');
+        }
+    }
+}
+
+// Function to get current view from URL
+function getCurrentViewFromURL() {
+    const hash = window.location.hash.substring(1); // Remove the # symbol
+    return hash === 'table' ? 'table' : 'grid'; // Default to grid if no hash or invalid hash
+}
+
+// Function to handle browser back/forward navigation
+function handlePopState(event) {
+    const viewType = getCurrentViewFromURL();
+    switchView(viewType, false); // Don't update URL since we're responding to URL change
+    
+    // Setup scrollbar auto-hide when switching to table view via browser navigation
+    if (viewType === 'table') {
+        setTimeout(() => {
+            setupScrollbarAutoHide();
+        }, 100);
     }
 }
 
@@ -642,8 +663,12 @@ function filterTableRows(searchText, activeTypeFilters, activeCategoryFilter, ac
         const searchableContent = `${name} ${typeText} ${statusText} ${descriptionText}`.toLowerCase();
         
         const matchesSearch = !searchText || searchableContent.includes(searchText.toLowerCase());
-        const matchesType = activeTypeFilters.length === 0 || activeTypeFilters.includes(type);
-        const matchesStatus = activeStatusFilters.length === 0 || activeStatusFilters.includes(status);
+        
+        // Type filter: if no types selected, hide all; if types selected, must match one of them
+        const matchesType = activeTypeFilters.length > 0 && activeTypeFilters.includes(type);
+        
+        // Status filter: if no status filters selected, hide all; if status filters selected, must match one of them
+        const matchesStatus = activeStatusFilters.length > 0 && activeStatusFilters.includes(status);
         
         row.style.display = (matchesSearch && matchesType && matchesStatus) ? '' : 'none';
     });
@@ -728,9 +753,24 @@ async function initializeGrid() {
         tableBody.appendChild(row);
     });
 
-    // Initialize filter states - all filters on by default
-    window.activeTypeFilters = [];
+    // Initialize filter states - all type filters enabled by default, all status filters enabled by default
+    const allTypes = [...new Set(sourcesData.map(data => data['Component Type']))];
+    window.activeTypeFilters = [...allTypes]; // Enable all type filters by default
     window.activeStatusFilters = ['enabled', 'not-enabled', 'error']; // All status filters active by default
+    
+    // Set all type checkboxes as checked by default
+    setTimeout(() => {
+        const typeCheckboxes = document.querySelectorAll('#typeFilterTags input[type="checkbox"]');
+        typeCheckboxes.forEach(checkbox => {
+            checkbox.checked = true;
+        });
+        
+        // Update the "All Types" checkbox state
+        const allTypesCheckbox = document.querySelector('.type-option-all input');
+        if (allTypesCheckbox) {
+            allTypesCheckbox.checked = true;
+        }
+    }, 100);
 
     // Set up search functionality
     const searchInput = document.getElementById('sourceSearch');
@@ -739,21 +779,32 @@ async function initializeGrid() {
         filterTableRows(e.target.value, window.activeTypeFilters, null, window.activeStatusFilters);
     });
 
-    // Set up view switching
-    const viewButtons = document.querySelectorAll('.view-switch button');
-    viewButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const viewType = button.getAttribute('data-view');
-            switchView(viewType);
-            
-            // Setup scrollbar auto-hide when switching to table view
-            if (viewType === 'table') {
-                setTimeout(() => {
-                    setupScrollbarAutoHide();
-                }, 100);
-            }
-        });
+    // Set up view switching with URL routing
+    const toggleButton = document.querySelector('.view-toggle-button');
+    toggleButton.addEventListener('click', () => {
+        const currentView = toggleButton.getAttribute('data-current-view');
+        const newView = currentView === 'grid' ? 'table' : 'grid';
+        switchView(newView);
+        
+        // Setup scrollbar auto-hide when switching to table view
+        if (newView === 'table') {
+            setTimeout(() => {
+                setupScrollbarAutoHide();
+            }, 100);
+        }
     });
+
+    // Set up browser navigation handling
+    window.addEventListener('popstate', handlePopState);
+    
+    // Initialize view based on current URL
+    const initialView = getCurrentViewFromURL();
+    switchView(initialView, false); // Don't update URL on initial load
+    
+    // If no hash in URL, set default hash
+    if (!window.location.hash) {
+        window.history.replaceState({ view: 'grid' }, '', '#grid');
+    }
 
     // Set up "Select All" checkbox functionality
     const selectAllCheckbox = document.getElementById('selectAll');
@@ -830,9 +881,11 @@ async function initializeGrid() {
     });
 
     // Setup scrollbar auto-hide for initial load if table view is active
-    setTimeout(() => {
-        setupScrollbarAutoHide();
-    }, 100);
+    if (initialView === 'table') {
+        setTimeout(() => {
+            setupScrollbarAutoHide();
+        }, 100);
+    }
 }
 
 // Initialize when the page loads

@@ -1,19 +1,19 @@
 O11ySource Name,Component Type,Component Category
 Active Directory,Directory Service,Infra
 AIX Monitor,Server,Infra
-AWS ALB,Cloud Network Service,Network
-AWS ELB,Cloud Network Service,Network
-AWS NLB,Cloud Network Service,Network
-AWS S3,Cloud Storage,Infra
-AWS Transit Gateway,Cloud Network Service,Network
-AWS RDS,Cloud Database,Infra
-AWS VPC,Cloud Network Service,Network
 Apache,Web Server,Infra
+Apache HDFS,Distributed File System,Infra
+AWS ALB,Cloud Network Service,Network
 AWS API Gateway,Cloud API Gateway,Network
 AWS CloudFront,CDN,Network
+AWS ELB,Cloud Network Service,Network
 AWS ElastiCache,Memory Cache,Infra
 AWS Network Firewall,Firewall,Network
+AWS NLB,Cloud Network Service,Network
+AWS RDS,Cloud Database,Infra
 AWS Route53,DNS,Network
+AWS S3,Cloud Storage,Infra
+AWS Transit Gateway,Cloud Network Service,Network
 AWS VPC,Cloud Network Service,Network
 AWS WAF,Firewall,Network
 Azure Compute VM,Virtual Machine,Infra
@@ -36,7 +36,6 @@ F5 Load Balancer,Load Balancer,Network
 Fortinet Firewall,Firewall,Network
 GCP GKE,Container Orchestration,Infra
 HAProxy,Load Balancer,Network
-Apache HDFS,Distributed File System,Infra
 HPUX Monitor,Server,Infra
 HTTP Poller,Data,Infra
 HTTP Receiver,Data,Infra
@@ -52,10 +51,9 @@ KeyDB,Memory Cache,Infra
 Kong API Gateway,API Gateway,Network
 Kubernetes,Container Orchestration,Infra
 Linux Monitor,Server,Infra
-Log Collector,Logs,Infra
 Linux Windows Logs,Logs,Infra
+Log Collector,Logs,Infra
 MariaDB,Database,Infra
-Solaris AIX Logs,Logs,Infra
 Microsoft DFS,Storage Service,Infra
 Mobile RUM,Real User Monitoring,APM
 MongoDB,Database,Infra
@@ -80,6 +78,7 @@ SFTP Monitor,Network Service,Infra
 SNMP Availability,Availability,Network
 SNMP Polling,Device,Network
 SNMP Trap,Device Traps,Network
+Solaris AIX Logs,Logs,Infra
 Solaris Monitor,Server,Infra
 Solaris Monitoring,Server,Infra
 Solarwinds,Monitoring Tool,Infra
@@ -95,5 +94,5 @@ Vault,Secure Store,Infra
 vSphere,Hypervisor,Infra
 WebLogic,Application Server,Infra
 Websphere Messaging Queue,Messaging,Infra
-Windows Monitor,Server,Infra
 Windows Event Logs,Logs,Infra
+Windows Monitor,Server,Infra
