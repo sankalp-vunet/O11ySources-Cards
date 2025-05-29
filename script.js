@@ -371,14 +371,14 @@ function filterCards(searchText, activeTypeFilters, activeCategoryFilter, active
     
     cards.forEach(card => {
         const name = card.querySelector('.card-name').textContent.toLowerCase();
-        const type = card.getAttribute('data-type').toLowerCase();
-        const category = card.getAttribute('data-category').toLowerCase();
-        const status = card.getAttribute('data-status').toLowerCase();
+        const type = card.getAttribute('data-type');
+        const category = card.getAttribute('data-category');
+        const status = card.getAttribute('data-status');
         const componentType = card.querySelector('.component-type').textContent.toLowerCase();
         const statusText = card.querySelector('.status').textContent.toLowerCase();
         
         // Create searchable content string that includes all visible text
-        const searchableContent = `${name} ${type} ${category} ${componentType} ${statusText}`.toLowerCase();
+        const searchableContent = `${name} ${type.toLowerCase()} ${category.toLowerCase()} ${componentType} ${statusText}`.toLowerCase();
         
         const matchesSearch = !searchText || searchableContent.includes(searchText.toLowerCase());
         
