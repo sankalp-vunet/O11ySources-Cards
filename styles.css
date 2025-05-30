@@ -3,7 +3,7 @@
 :root {
     --x-00: 0px;
     --x-054: 4px;
-    --radius-default: 2px;
+    --radius-default: 1px;
     
     /* Base Colors from variables.css */
     --whiteBase-100: rgba(204, 204, 220, 1);
@@ -612,8 +612,10 @@ body {
 
 /* Not-enabled state (default) */
 .card.card-not-enabled {
-    border-color: var(--border-medium-not-enabled);
-    border-width: 2px;
+    border-color: var(--border-medium);
+    border-top-color: var(--border-medium-not-enabled);
+    border-width: 1px;
+    border-top-width: 4px;
 }
 
 /* Not-enabled pressed state */
@@ -628,8 +630,10 @@ body {
 
 /* Enabled state */
 .card.card-enabled {
-    border-color: var(--green-lightText);
-    border-width: 2px;
+    border-color: var(--border-medium);
+    border-top-color: var(--green-lightText);
+    border-width: 1px;
+    border-top-width: 4px;
 }
 
 /* Enabled pressed state */
@@ -648,8 +652,10 @@ body {
 
 /* Error state */
 .card.card-error {
-    border-color: var(--red-lightText);
+    border-color: var(--border-medium);
+    border-top-color: var(--red-lightText);
     border-width: 1px;
+    border-top-width: 4px;
 }
 
 /* Error pressed state */
@@ -673,10 +679,12 @@ body {
     display: flex;
     align-items: center;
     gap: 4px;
+    flex-wrap: wrap;
 }
 
 .status.enabled {
     color: var(--green-success);
+    justify-content: space-between;
 }
 
 .status.not-enabled {
@@ -689,6 +697,44 @@ body {
 
 .status-icon {
     flex-shrink: 0;
+}
+
+/* Status indicators for enabled cards */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.status-indicator:nth-child(1) .status-icon {
+    color: var(--green-success);
+}
+
+.status-indicator:nth-child(2) .status-icon {
+    color: var(--text-primary);
+}
+
+.indicator-count {
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.green-text {
+    color: var(--green-success);
+}
+
+.red-text {
+    color: var(--red-lightMain);
+}
+
+.primary-text {
+    color: var(--text-primary);
+}
+
+.damaged-count {
+    color: var(--red-lightMain);
+    text-decoration: underline;
 }
 
 .image-container {
@@ -709,8 +755,8 @@ body {
 
 /* Table view source icons */
 .source-icon {
-    width: 44px;
-    height: 44px;
+    width: fit-content;
+    height: fit-content;
     object-fit: contain;
 }
 
@@ -718,7 +764,6 @@ body {
     font-weight: 600;
     font-size: 14px;
     color: var(--text-primary);
-    margin-bottom: 2px;
     line-height: 1.4;
     white-space: nowrap;
     overflow: hidden;
@@ -728,7 +773,6 @@ body {
 .component-type {
     font-size: 12px;
     color: var(--text-secondary);
-    margin-bottom: 2px;
     line-height: 1.4;
     white-space: nowrap;
     overflow: hidden;
@@ -1130,9 +1174,8 @@ body {
     right: 0;
     z-index: 20;
     background: var(--background-primary);
-    width: 60px;
-    min-width: 60px;
-    text-align: center;
+    width: 32px;
+    min-width: 32px;
     border-left: 1px solid var(--border-medium);
     border-right: none;
 }
@@ -1201,7 +1244,7 @@ body {
 
 /* Icon Column */
 .table-view .icon-cell {
-    width: 48px;
+    width: 70px;
     padding: 8px;
     text-align: center;
     padding: 0;
@@ -1283,6 +1326,7 @@ body {
     width: fit-content;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
 }
 
 .action-button {
@@ -1295,7 +1339,7 @@ body {
     background: none;
     cursor: pointer;
     border-radius: 4px;
-    color: #57606A;
+    color: var(--text-primary);
 }
 
 .action-button:hover {
@@ -1387,13 +1431,18 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
     border: 1px solid var(--border-medium);
     background-color: var(--background-primary);
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.2s ease;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    white-space: nowrap;
 }
 
 .view-toggle-button:hover {
@@ -1410,4 +1459,9 @@ body {
 .grid-icon {
     font-size: 16px;
     line-height: 1;
+    flex-shrink: 0;
+}
+
+.view-text {
+    font-weight: 500;
 } 

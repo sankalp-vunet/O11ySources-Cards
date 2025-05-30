@@ -142,7 +142,30 @@ function createCard(data) {
         card.setAttribute('data-status', 'error');
     } else if (statusText === 'Enabled') {
         status.className = 'status enabled';
-        status.textContent = `${statusText} (${statusNumber})`;
+        
+        // Generate random numbers for the two indicators
+        const redCount = Math.floor(Math.random() * 25) + 1;
+        const greenCount = Math.floor(Math.random() * 50) + 1;
+        const bellCount = Math.floor(Math.random() * 25) + 1;
+        
+        status.innerHTML = `
+            <div class="status-indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" class="status-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="9,12 12,15 15,9"/>
+                </svg>
+                <span class="indicator-count">
+                    <span class="red-text">${redCount}</span>/<span class="green-text">${greenCount}</span>
+                </span>
+            </div>
+            <div class="status-indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" class="status-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                </svg>
+                <span class="indicator-count primary-text">${bellCount}</span>
+            </div>
+        `;
         card.classList.add('card-enabled');
         card.setAttribute('data-status', 'enabled');
     } else {
@@ -477,7 +500,9 @@ function createTableRow(data) {
     typeDiv.title = data['Component Type'];
     typeCell.appendChild(typeDiv);
     
-    // Category cell removed
+    // Damaged Instances cell (created here for conditional logic)
+    const damagedInstancesCell = document.createElement('td');
+    damagedInstancesCell.className = 'metric-cell';
     
     // Status cell
     const [statusText, statusNumber] = generateRandomStatus();
@@ -495,24 +520,39 @@ function createTableRow(data) {
             <span>Error</span>
         `;
         tr.setAttribute('data-status', 'error');
+        // No damaged instances for error state
+        damagedInstancesCell.textContent = '--';
     } else if (statusText === 'Enabled') {
         statusDiv.className = 'status-cell enabled';
-        statusDiv.textContent = `${statusText} (${statusNumber})`;
+        
+        // Generate random number for the circle check indicator (table view simplified)
+        const checkCount = Math.floor(Math.random() * 25) + 1;
+        
+        statusDiv.innerHTML = `
+            <div class="status-indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" class="status-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="9,12 12,15 15,9"/>
+                </svg>
+                <span class="indicator-count green-text">${checkCount}</span>
+            </div>
+        `;
         tr.setAttribute('data-status', 'enabled');
+        
+        // Add damaged instances number (lower than checkCount) for enabled state
+        const damagedCount = Math.floor(Math.random() * checkCount) + 1;
+        damagedInstancesCell.innerHTML = `<span class="damaged-count">${damagedCount}</span>`;
     } else {
         statusDiv.className = 'status-cell not-enabled';
         statusDiv.textContent = statusText;
         tr.setAttribute('data-status', 'not-enabled');
+        // No damaged instances for not-enabled state
+        damagedInstancesCell.textContent = '--';
     }
     statusCell.appendChild(statusDiv);
     
     // Generate random metrics
     const metrics = generateRandomMetrics();
-    
-    // Dashboards cell
-    const dashboardsCell = document.createElement('td');
-    dashboardsCell.className = 'metric-cell';
-    dashboardsCell.textContent = metrics.dashboards;
     
     // Alerts cell
     const alertsCell = document.createElement('td');
@@ -538,33 +578,18 @@ function createTableRow(data) {
     const actionsContainer = document.createElement('div');
     actionsContainer.className = 'actions-container';
     
-    // View action removed
-    
-    // Edit action - Tabler outline icon
-    const editButton = document.createElement('button');
-    editButton.className = 'action-button';
-    editButton.innerHTML = `
+    // View instances action - Eye outline icon
+    const viewButton = document.createElement('button');
+    viewButton.className = 'action-button';
+    viewButton.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
         </svg>
     `;
-    editButton.title = 'Edit';
+    viewButton.title = 'View instances';
     
-    // Delete action - Tabler outline icon
-    const deleteButton = document.createElement('button');
-    deleteButton.className = 'action-button';
-    deleteButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6h18"/>
-            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
-            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
-        </svg>
-    `;
-    deleteButton.title = 'Delete';
-    
-    actionsContainer.appendChild(editButton);
-    actionsContainer.appendChild(deleteButton);
+    actionsContainer.appendChild(viewButton);
     actionsCell.appendChild(actionsContainer);
     
     // Set data attributes for filtering
@@ -577,7 +602,7 @@ function createTableRow(data) {
     tr.appendChild(nameCell);
     tr.appendChild(typeCell);
     tr.appendChild(statusCell);
-    tr.appendChild(dashboardsCell);
+    tr.appendChild(damagedInstancesCell);
     tr.appendChild(alertsCell);
     tr.appendChild(criticalAlertsCell);
     tr.appendChild(descriptionCell);
@@ -593,14 +618,17 @@ function switchView(viewType, updateURL = true) {
     const toggleButton = document.querySelector('.view-toggle-button');
     const gridIcon = toggleButton.querySelector('.grid-icon');
     const tableIcon = toggleButton.querySelector('.table-icon');
+    const viewTexts = toggleButton.querySelectorAll('.view-text');
     
     if (viewType === 'grid') {
         gridContainer.style.display = 'grid';
         tableContainer.style.display = 'none';
         
-        // Update button to show table icon (since we're in grid view, clicking will switch to table)
-        gridIcon.style.display = 'none';
-        tableIcon.style.display = 'block';
+        // Update button to show grid icon and "Grid View" text (showing current view)
+        gridIcon.style.display = 'block';
+        tableIcon.style.display = 'none';
+        viewTexts[0].style.display = 'none';  // "Table View"
+        viewTexts[1].style.display = 'block'; // "Grid View"
         toggleButton.setAttribute('data-current-view', 'grid');
         toggleButton.setAttribute('title', 'Switch to table view');
         
@@ -612,9 +640,11 @@ function switchView(viewType, updateURL = true) {
         gridContainer.style.display = 'none';
         tableContainer.style.display = 'block';
         
-        // Update button to show grid icon (since we're in table view, clicking will switch to grid)
-        gridIcon.style.display = 'block';
-        tableIcon.style.display = 'none';
+        // Update button to show table icon and "Table View" text (showing current view)
+        gridIcon.style.display = 'none';
+        tableIcon.style.display = 'block';
+        viewTexts[0].style.display = 'block'; // "Table View"
+        viewTexts[1].style.display = 'none';  // "Grid View"
         toggleButton.setAttribute('data-current-view', 'table');
         toggleButton.setAttribute('title', 'Switch to grid view');
         
@@ -785,14 +815,14 @@ async function initializeGrid() {
         const currentView = toggleButton.getAttribute('data-current-view');
         const newView = currentView === 'grid' ? 'table' : 'grid';
         switchView(newView);
-        
-        // Setup scrollbar auto-hide when switching to table view
+            
+            // Setup scrollbar auto-hide when switching to table view
         if (newView === 'table') {
-            setTimeout(() => {
-                setupScrollbarAutoHide();
-            }, 100);
-        }
-    });
+                setTimeout(() => {
+                    setupScrollbarAutoHide();
+                }, 100);
+            }
+        });
 
     // Set up browser navigation handling
     window.addEventListener('popstate', handlePopState);
@@ -882,9 +912,9 @@ async function initializeGrid() {
 
     // Setup scrollbar auto-hide for initial load if table view is active
     if (initialView === 'table') {
-        setTimeout(() => {
-            setupScrollbarAutoHide();
-        }, 100);
+    setTimeout(() => {
+        setupScrollbarAutoHide();
+    }, 100);
     }
 }
 
